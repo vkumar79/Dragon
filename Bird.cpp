@@ -10,12 +10,12 @@ Bird::Bird( cocos2d::Layer *layer )
     origin = Director::getInstance( )->getVisibleOrigin( );
     
     //Code for animation --> start
-    SpriteBatchNode* spritebatch = SpriteBatchNode::create("dragon.png");
+    SpriteBatchNode* spritebatch = SpriteBatchNode::create("flappySprites.png");
     SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-    cache->addSpriteFramesWithFile("dragon.plist");
+    cache->addSpriteFramesWithFile("flappySprites.plist");
     
     flappyBird = Sprite::createWithSpriteFrameName("frame-1.png");
-    flappyBird->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y ) );
+    flappyBird->setPosition( Point( visibleSize.width / 3 + origin.x, visibleSize.height / 2 + origin.y ) );
     spritebatch->addChild(flappyBird);
     layer->addChild(spritebatch);
     
@@ -35,7 +35,7 @@ Bird::Bird( cocos2d::Layer *layer )
     
     MyBodyParser::getInstance()->parseJsonFile( "dragon.json" );
     
-    auto flappyBody = MyBodyParser::getInstance()->bodyFormJson(flappyBird, "DragonPoly", PhysicsMaterial( 1, 1, 0 ) );
+    flappyBody = MyBodyParser::getInstance()->bodyFormJson(flappyBird, "DragonPoly", PhysicsMaterial( 1, 1, 0 ) );
     
     /*if ( flappyBody != nullptr )
     {
@@ -62,12 +62,19 @@ void Bird::Fall( )
 {
     if ( true == isFalling )
     {
-        flappyBird->setPositionX( visibleSize.width / 2 + origin.x );
-        flappyBird->setPositionY( flappyBird->getPositionY() - ( BIRD_FALLING_SPEED * visibleSize.height ) );
+        //flappyBird->setPositionX( visibleSize.width / 2 + origin.x );
+        //flappyBird->setPositionY( flappyBird->getPositionY() - ( BIRD_FALLING_SPEED * visibleSize.height ) );
     }
     else
     {
-        flappyBird->setPositionX( visibleSize.width / 2 + origin.x );
+        //flappyBird->setPositionX( visibleSize.width / 2 + origin.x );
         flappyBird->setPositionY( flappyBird->getPositionY() + ( BIRD_FALLING_SPEED * visibleSize.height ) );
     }
+}
+
+void Bird::Fly(){
+    CocosDenshion::SimpleAudioEngine::getInstance( )->playEffect( "Sounds/Wing.mp3" ); isFalling = false;
+    //flappyBody->applyForce(Vec2(0,50));
+    //flappyBody->applyImpulse(Vec2(0,100));
+    flappyBody->setVelocity(Vec2(0,200));
 }

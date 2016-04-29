@@ -13,8 +13,15 @@ void Pipe::SpawnPipe( cocos2d::Layer *layer )
 {
     CCLOG( "SPAWN PIPE" );
     
-    auto topPipe = Sprite::create( "pipe.png" );
-    auto bottomPipe = Sprite::create( "pipe.png" );
+    //SpriteBatchNode* spritebatch = SpriteBatchNode::create("flappySprites.png");
+    //SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+    //cache->addSpriteFramesWithFile("flappySprites.plist");
+    
+    //auto backgroundSprite = Sprite::createWithSpriteFrameName("background1.png");
+
+    
+    auto topPipe = Sprite::createWithSpriteFrameName( "pipe.png" );
+    auto bottomPipe = Sprite::createWithSpriteFrameName( "pipe.png" );
     
     auto topPipeBody = PhysicsBody::createBox( topPipe->getContentSize( ) );
     auto bottomPipeBody = PhysicsBody::createBox( bottomPipe->getContentSize( ) );
@@ -31,7 +38,7 @@ void Pipe::SpawnPipe( cocos2d::Layer *layer )
     }
     
     
-    auto topPipePosition = ( random * visibleSize.height ) + ( topPipe->getContentSize( ).height / 2 );
+    auto topPipePosition = ( random * visibleSize.height ) + ( topPipe->getContentSize( ).height*2 / 3 );
     
     topPipeBody->setDynamic( false );
     bottomPipeBody->setDynamic( false );
@@ -46,7 +53,7 @@ void Pipe::SpawnPipe( cocos2d::Layer *layer )
     
     topPipe->setFlippedY(true);
     topPipe->setPosition( Point( visibleSize.width + topPipe->getContentSize( ).width + origin.x, topPipePosition ) );
-    bottomPipe->setPosition( Point( topPipe->getPositionX(), topPipePosition - ( Sprite::create( "Ball.png" )->getContentSize( ).height * PIPE_GAP ) - topPipe->getContentSize().height ) );
+    bottomPipe->setPosition( Point( topPipe->getPositionX(), topPipePosition - ( Sprite::createWithSpriteFrameName( "frame-1.png" )->getContentSize( ).height * PIPE_GAP ) - topPipe->getContentSize().height ) );
     
     layer->addChild( topPipe );
     layer->addChild( bottomPipe );
@@ -58,7 +65,7 @@ void Pipe::SpawnPipe( cocos2d::Layer *layer )
     bottomPipe->runAction( bottomPipeAction );
     
     auto pointNode = Node::create( );
-    auto pointBody = PhysicsBody::createBox( Size( 1, Sprite::create( "Ball.png" )->getContentSize( ).height * PIPE_GAP ) );
+    auto pointBody = PhysicsBody::createBox( Size( 1, Sprite::createWithSpriteFrameName( "frame-1.png" )->getContentSize( ).height * PIPE_GAP ) );
     
     pointBody->setDynamic( false );
     pointBody->setCollisionBitmask( POINT_COLLISION_BITMASK );
@@ -66,7 +73,7 @@ void Pipe::SpawnPipe( cocos2d::Layer *layer )
     pointBody->resetForces();
     
     pointNode->setPhysicsBody( pointBody );
-    pointNode->setPosition( Point( topPipe->getPositionX( ), topPipe->getPositionY( ) - ( topPipe->getContentSize( ).height / 2 ) - ( ( Sprite::create( "Ball.png" )->getContentSize( ).height * PIPE_GAP ) / 2 ) ) );
+    pointNode->setPosition( Point( topPipe->getPositionX( ), topPipe->getPositionY( ) - ( topPipe->getContentSize( ).height / 2 ) - ( ( Sprite::createWithSpriteFrameName( "frame-1.png" )->getContentSize( ).height * PIPE_GAP ) / 2 ) ) );
     
     layer->addChild( pointNode );
     

@@ -10,7 +10,7 @@ public:
     Bird( cocos2d::Layer *layer );
     
     void Fall( );
-    void Fly( ) { CocosDenshion::SimpleAudioEngine::getInstance( )->playEffect( "Sounds/Wing.mp3" ); isFalling = false; };
+    void Fly( ) ;
     void StopFlying( ) { isFalling = true; }
     
 private:
@@ -18,6 +18,7 @@ private:
     cocos2d::Vec2 origin;
     
     cocos2d::Sprite *flappyBird;
+    cocos2d::PhysicsBody *flappyBody;
     
     bool isFalling;
     

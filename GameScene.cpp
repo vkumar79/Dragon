@@ -9,8 +9,8 @@ Scene* GameScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld( )->setDebugDrawMask( PhysicsWorld::DEBUGDRAW_ALL );
-    scene->getPhysicsWorld( )->setGravity( Vect( 0, 0 ) );
+    //scene->getPhysicsWorld( )->setDebugDrawMask( PhysicsWorld::DEBUGDRAW_ALL );
+    scene->getPhysicsWorld( )->setGravity( Vect( 0, -500 ) );
     
     // 'layer' is an autorelease object
     auto layer = GameScene::create();
@@ -100,9 +100,9 @@ bool GameScene::onContactBegin( cocos2d::PhysicsContact &contact )
     {
         CocosDenshion::SimpleAudioEngine::getInstance( )->playEffect( "Sounds/Hit.mp3" );
         
-        auto scene = GameOverScene::createScene(score );
+        //auto scene = GameOverScene::createScene(score );
         
-        Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
+        //Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
     }
     else if ( ( BIRD_COLLISION_BITMASK == a->getCollisionBitmask( ) && POINT_COLLISION_BITMASK == b->getCollisionBitmask() ) || ( BIRD_COLLISION_BITMASK == b->getCollisionBitmask( ) && POINT_COLLISION_BITMASK == a->getCollisionBitmask() ) )
     {

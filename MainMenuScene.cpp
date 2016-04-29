@@ -32,7 +32,14 @@ bool MainMenuScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    auto backgroundSprite = Sprite::create( "Background.png" );
+    //Code for animation --> start
+    //SpriteBatchNode* spritebatch = SpriteBatchNode::create("flappySprites.png");
+    //SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+    //cache->addSpriteFramesWithFile("flappySprites.plist");
+    
+    auto backgroundSprite = Sprite::createWithSpriteFrameName("background1.png");
+    
+    //auto backgroundSprite = Sprite::create( "Background.png" );
     backgroundSprite->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y ) );
     
     this->addChild( backgroundSprite );
